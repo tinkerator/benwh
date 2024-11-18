@@ -58,8 +58,8 @@ $ go run examples/status.go --delay=1m --poll=10
 
 ## Credits
 
-Searching online for specs for this systems's API failed to turn up
-anything that seemed like official documentation. What I did find was
+Searching online for specs for this system's API failed to turn up
+anything that looks like official documentation. What I did find was
 some [Python code](https://github.com/richo/franklinwh-python),
 written by richö butts, that covered aspects of the MQTT access to the
 device. It looks like this is how the official FranklinWH App gets
