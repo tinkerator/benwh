@@ -11,6 +11,7 @@ import (
 	"io"
 	"net/http"
 	"net/url"
+	"strconv"
 	"time"
 )
 
@@ -254,8 +255,11 @@ func (conn *Conn) Status() (resp *DataStatus, err error) {
 	}
 
 	checksum = crc32.ChecksumIEEE([]byte(fmt.Sprintf("%q", mresp.Result.DataArea)))
-	if got, want := mresp.Result.CRC, fmt.Sprintf("%08X", checksum); got != want {
-		err = fmt.Errorf("invalid CRC return got=%q, want=%q", got, want)
+	if got, err2 := strconv.ParseUint(mresp.Result.CRC, 16, 32); err != nil {
+		err = fmt.Errorf("invalid CRC return got=%q which is not hex", mresp.Result.CRC, err2)
+		return
+	} else if uint32(got) != checksum {
+		err = fmt.Errorf("invalid CRC return got=%X, want=%X", got, checksum)
 		return
 	}
 	resp = &DataStatus{}
