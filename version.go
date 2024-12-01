@@ -2,4 +2,4 @@
 
 package benwh
 
-const userAgent = "BenWH_Go_Client/v0.1.3"
+const userAgent = "BenWH_Go_Client/v0.1.4"
