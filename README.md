@@ -4,8 +4,8 @@
 
 The `benwh` package provides a [Go
 API](https://pkg.go.dev/zappem.net/pub/net/benwh) for finding and
-reading the status of [`FranklinWH API
-systems`](https://www.franklinwh.com/) services over the network. This
+reading the status of [FranklinWH API
+systems](https://www.franklinwh.com/) services over the network. This
 package is not in any way official, but seems to work well enough for
 its intended purpose.
 
