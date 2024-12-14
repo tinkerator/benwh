@@ -15,6 +15,9 @@ import (
 	"time"
 )
 
+// Debug enables more verbose error strings
+var Debug = false
+
 // LoginResult holds the user details for an authenticated user.
 type LoginResult struct {
 	UserID  int    `json:"userId"`
@@ -177,8 +180,17 @@ func NewConn(conf Config) (conn *Conn, err error) {
 		return nil, err
 	}
 	res.Body.Close()
+	if res.StatusCode != http.StatusOK {
+		if Debug {
+			return nil, fmt.Errorf("%s [%q]", res.Status, string(d))
+		}
+		return nil, fmt.Errorf("%s", res.Status)
+	}
 	var resp LoginResponse
 	if err := json.Unmarshal(d, &resp); err != nil {
+		if Debug {
+			return nil, fmt.Errorf("parsing:[%q]: %v", string(d), err)
+		}
 		return nil, err
 	}
 	conn = &Conn{
@@ -236,6 +248,15 @@ func (conn *Conn) Status() (resp *DataStatus, err error) {
 		err = fmt.Errorf("failed to read body: %v", err2)
 		return
 	}
+	res.Body.Close()
+	if res.StatusCode != http.StatusOK {
+		if Debug {
+			err = fmt.Errorf("failed request: %s [%q]", res.Status, string(d))
+			return
+		}
+		err = fmt.Errorf("failed request: %s", res.Status)
+		return
+	}
 
 	var mresp MQTTResponse
 	if err2 := json.Unmarshal(d, &mresp); err != nil {
@@ -250,6 +271,10 @@ func (conn *Conn) Status() (resp *DataStatus, err error) {
 	case 200:
 		// OK
 	default:
+		if Debug {
+			err = fmt.Errorf("unexpected mqtt code = %d [%q]", mresp.Code, string(d))
+			return
+		}
 		err = fmt.Errorf("unexpected mqtt code = %d", mresp.Code)
 		return
 	}

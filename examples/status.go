@@ -66,6 +66,8 @@ func createConfig() (conf benwh.Config, err error) {
 func main() {
 	flag.Parse()
 
+	benwh.Debug = *debug
+
 	var conf benwh.Config
 	var err error
 
@@ -118,7 +120,7 @@ func main() {
 			log.Printf("resp %#v", resp)
 		} else {
 			if first {
-				log.Print("(kW) Utility    Solar     Gen  A-Gate   House  %Charge")
+				log.Print("(kW) Utility    Solar     Gen  A-Gate   House   %Charge")
 			}
 			log.Printf("      %6.3f   %6.3f  %6.3f  %6.3f  %6.3f   %6.3f", resp.PUti, resp.PSun, resp.PGen, resp.PFhp, resp.PLoad, resp.Soc)
 		}
