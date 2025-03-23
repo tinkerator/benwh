@@ -264,7 +264,7 @@ func (conn *Conn) Status() (resp *DataStatus, err error) {
 		return
 	}
 	switch mresp.Code {
-	case 102:
+	case 102, 136:
 		// Seems to require a simple retry.
 		err = ErrRetryLater
 		return

@@ -13,7 +13,7 @@ To use this package, you will need the account email and password as
 well as the Site Device ID for your system. The non-password details
 are visible from the official [FranklinWH
 app](https://www.franklinwh.com/support/articles/detail/how-can-i-download-the-franklinwh-app):
-More > Site Devices > Site 1 (etc).
+More > Site Devices > Site 1 (etc, look for `SN:`).
 
 ```
 $ git clone https://github.com/tinkerator/benwh.git
@@ -23,7 +23,7 @@ $ go run examples/status.go
 exit status 1
 $ go run examples/status.go --newlogin
 Email: xxx@test.com
-Site Device ID: xxxxxxxxxxxxxxxxxxxx
+Site Device ID (SN): xxxxxxxxxxxxxxxxxxxx
 Password: *******
 2024/11/17 15:37:51 (kW) Utility    Solar     Gen  A-Gate   House  %Charge
 2024/11/17 15:37:51        0.855    0.000   0.000  -0.050   0.805   99.474

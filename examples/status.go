@@ -44,7 +44,7 @@ func createConfig() (conf benwh.Config, err error) {
 	}
 	if len(conf.Device) == 0 || conf.Device[0] == "" {
 		conf.Device = nil
-		fmt.Print("Side Device ID: ")
+		fmt.Print("Site Device ID (SN): ")
 		dev, err2 := r.ReadString('\n')
 		if err2 != nil {
 			err = fmt.Errorf("failed to read site device: %v", err2)
@@ -58,6 +58,7 @@ func createConfig() (conf benwh.Config, err error) {
 		err = fmt.Errorf("failed to read password: %v", err2)
 		return
 	}
+	fmt.Println()
 	h := md5.Sum([]byte(pass))
 	conf.Password = hex.EncodeToString(h[:])
 	return
